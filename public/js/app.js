@@ -8,8 +8,21 @@ openlp
     .controller('MainController', ['AnalyzeService', function(AnalyzeService) {
         var that = this;
         this.openlpModel = {};
+        this.payloadModel = [];
+        this.isLoading = false;
         this.payload = function() {
-            console.log(that.openlpModel);
-            AnalyzeService.save(that.openlpModel);
+            that.isLoading = true;
+            AnalyzeService.save(that.openlpModel,
+                function(payload){
+                    if (payload.$resolved && payload.list) {
+                        that.isLoading = false;
+                        that.payloadModel = payload.list;
+                    }
+                },
+                function(error) {
+                    that.isLoading = false;
+                    that.payloadModel = ['ERROR'];
+                }
+            );
         };
     }]);

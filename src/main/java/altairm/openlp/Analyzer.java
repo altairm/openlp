@@ -32,7 +32,11 @@ public class Analyzer {
             NameFinderME finder = new NameFinderME(model1);
             Span names[] = finder.find(tokens);
             for (Span name: names) {
-                res.add(tokens[name.getStart()]);
+                String nameStr = "";
+                for (int i = name.getStart(); i < name.getEnd(); i++) {
+                    nameStr += " " + tokens[i];
+                }
+                res.add(nameStr);
             }
             return res;
         } finally {
