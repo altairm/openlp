@@ -4,8 +4,7 @@
 <head>
     <title>Open NLP test tool</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="/css/slate.bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/styles.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body ng-controller="MainController as mainCtrl">
@@ -14,21 +13,18 @@
             Loading...
         </div>
     </div>
-    <div class="panel panel-primary">
+    <div class="main-panel panel panel-primary">
         <div class="panel-heading">Open NLP test tool</div>
         <div class="panel-body">
             <label for="text" class="control-label">Text to analyze</label>
             <div>
-                <textarea cols="200" rows="10" placeholder="Put your text here" ng-model="mainCtrl.openlpModel.text"></textarea>
+                <textarea class="main-text" placeholder="Put your text here" ng-model="mainCtrl.openlpModel.text"></textarea>
             </div>
             <label for="type" class="control-label input-group">Choose type</label>
             <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group" role="group" data-toggle="buttons" ng-init="mainCtrl.openlpModel.type = 'name'">
                     <label class="btn  btn-default " ng-click="mainCtrl.openlpModel.type = 'tokenizer'">
                         <input value="tokenizer" type="radio">Tokenizer
-                    </label>
-                    <label class="btn  btn-default " ng-click="mainCtrl.openlpModel.type = 'sentence'">
-                        <input value="sentence" type="radio">Sentence Detector
                     </label>
                     <label class="btn  btn-default active" ng-click="mainCtrl.openlpModel.type = 'name'">
                         <input value="name" type="radio">Name Finder
@@ -39,22 +35,19 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div ng-if="mainCtrl.payloadModel.length > 0">
-        <label for="results" class="control-label">Results</label>
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="item in mainCtrl.payloadModel track by $index">
-                <div ng-switch="item.type">
-                    <span ng-switch-when="person"><span class="glyphicon glyphicon-user"></span> {{item.text}}</span>
-                    <span ng-switch-when="organization"><span class="glyphicon glyphicon-briefcase"></span> {{item.text}}</span>
-                    <span ng-switch-default><span class="glyphicon glyphicon-tag"></span> {{item.text}}</span>
+        <div class="panel-body" ng-if="mainCtrl.payloadModel.length > 0">
+            <label for="results" class="control-label">Results</label>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in mainCtrl.payloadModel track by $index">
+                    <span><span class="{{item.type}}"></span> {{item.text}}</span>
                     <span ng-if="item.prob != undefined && item.prob >= 75" class="green">{{item.prob}}%</span>
-                    <span ng-if="item.prob != undefined && item.prob < 75" class="red">{{item.prob}}%</span>
-                </div>
-            </li>
-        </ul>
+                    <span ng-if="item.prob != undefined && item.prob < 75 && item.prob > 0" class="red">{{item.prob}}%</span>
+                </li>
+            </ul>
+        </div>
     </div>
-    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js"></script> -->
+
+    <!-- // <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script> -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.min.js"></script>

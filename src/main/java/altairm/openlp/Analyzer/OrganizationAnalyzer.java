@@ -13,7 +13,7 @@ import java.io.InputStream;
  * @author altair
  * @since 7/21/15.
  */
-public class OrganizationAnalyzer {
+public class OrganizationAnalyzer implements Analyzer<Span> {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(OrganizationAnalyzer.class);
 

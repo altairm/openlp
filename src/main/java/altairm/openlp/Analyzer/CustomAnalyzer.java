@@ -11,15 +11,15 @@ import java.io.InputStream;
 
 /**
  * @author altair
- * @since 7/21/15.
+ * @since 8/3/15.
  */
-public class PersonAnalyzer implements Analyzer<Span> {
+public class CustomAnalyzer implements Analyzer<Span> {
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(PersonAnalyzer.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(CustomAnalyzer.class);
 
     private String[] tokens;
 
-    public PersonAnalyzer(String[] tokens) {
+    public CustomAnalyzer(String[] tokens) {
         this.tokens = tokens;
     }
 
@@ -34,7 +34,7 @@ public class PersonAnalyzer implements Analyzer<Span> {
     public Span[] analyze() throws IOException {
         InputStream modelIn = null;
         try {
-            modelIn = getClass().getResourceAsStream("/en-ner-person.bin");
+            modelIn = getClass().getResourceAsStream("/en-custom.bin");
             TokenNameFinderModel model1 = new TokenNameFinderModel(modelIn);
             NameFinderME finder = new NameFinderME(model1);
             return finder.find(this.getTokens());

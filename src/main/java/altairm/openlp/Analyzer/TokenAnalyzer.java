@@ -13,7 +13,7 @@ import java.io.InputStream;
  * @author altair
  * @since 7/27/15.
  */
-public class TokenAnalyzer {
+public class TokenAnalyzer implements Analyzer<String> {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(TokenAnalyzer.class);
 

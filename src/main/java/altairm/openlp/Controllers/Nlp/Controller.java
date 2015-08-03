@@ -1,5 +1,6 @@
 package altairm.openlp.Controllers.Nlp;
 
+import altairm.openlp.Analyzer.CustomAnalyzer;
 import altairm.openlp.Analyzer.OrganizationAnalyzer;
 import altairm.openlp.Analyzer.PersonAnalyzer;
 import altairm.openlp.Analyzer.TokenAnalyzer;
@@ -43,6 +44,8 @@ public class Controller {
                     names.addAll(Arrays.asList(organizationAnalyzer.analyze()));
                     PersonAnalyzer personAnalyzer = new PersonAnalyzer(tokens);
                     names.addAll(Arrays.asList(personAnalyzer.analyze()));
+//                    CustomAnalyzer customAnalyzer = new CustomAnalyzer(tokens);
+//                    names.addAll(Arrays.asList(customAnalyzer.analyze()));
                     for (Span span: names) {
                         String nameString = "";
                         for (int i = span.getStart(); i < span.getEnd(); i++) {
@@ -56,8 +59,6 @@ public class Controller {
                     }
                 }
                 return res;
-            } else if (payload.isTypeOf(Payload.TYPE_SENTENCE)) {
-                return new Result();
             } else {
                 TokenAnalyzer analyzer = new TokenAnalyzer(payload.getText());
                 for (String token: analyzer.analyze()) {
@@ -71,6 +72,16 @@ public class Controller {
         } catch (IOException e) {
             LOGGER.warn("Error while analyzing text", e);
         }
+        return new Result();
+    }
+
+    @RequestMapping(
+            value = "/train",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Result train(@RequestBody Payload payload) {
         return new Result();
     }
 }
