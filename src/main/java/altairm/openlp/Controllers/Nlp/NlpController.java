@@ -1,9 +1,6 @@
 package altairm.openlp.Controllers.Nlp;
 
-import altairm.openlp.Analyzer.CustomAnalyzer;
-import altairm.openlp.Analyzer.OrganizationAnalyzer;
-import altairm.openlp.Analyzer.PersonAnalyzer;
-import altairm.openlp.Analyzer.TokenAnalyzer;
+import altairm.openlp.Analyzer.*;
 import opennlp.tools.util.Span;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +20,11 @@ import java.util.Set;
  * @since 7/21/15.
  */
 @RestController
-public class Controller {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Controller.class);
+public class NlpController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(NlpController.class);
 
     @RequestMapping(
-            value = "/openlp",
+            value = "/api/openlp",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -59,6 +56,22 @@ public class Controller {
                     }
                 }
                 return res;
+            } else if (payload.isTypeOf(Payload.TYPE_POS)) {
+                TokenAnalyzer analyzer = new TokenAnalyzer(payload.getText());
+                String[] tokens = analyzer.analyze();
+                PartOfSpeechAnalyzer partOfSpeechAnalyzer = new PartOfSpeechAnalyzer(tokens);
+                String[] partsOfSpeech = partOfSpeechAnalyzer.analyze();
+                for (int i = 0; i< tokens.length; i++) {
+                    Result.Item item = new Result.Item();
+                    item.setText(tokens[i]);
+                    if (partsOfSpeech.length > i) {
+                        item.setType(partsOfSpeech[i]);
+                    } else {
+                        item.setType("N/A");
+                    }
+                    res.getList().add(item);
+                }
+                return res;
             } else {
                 TokenAnalyzer analyzer = new TokenAnalyzer(payload.getText());
                 for (String token: analyzer.analyze()) {
@@ -76,7 +89,7 @@ public class Controller {
     }
 
     @RequestMapping(
-            value = "/train",
+            value = "/api/train",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE

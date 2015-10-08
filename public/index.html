@@ -26,6 +26,9 @@
                     <label class="btn  btn-default " ng-click="mainCtrl.openlpModel.type = 'tokenizer'">
                         <input value="tokenizer" type="radio">Tokenizer
                     </label>
+                    <label class="btn  btn-default " ng-click="mainCtrl.openlpModel.type = 'part_of_speech'">
+                        <input value="part_of_speech" type="radio">Part Of Speech
+                    </label>
                     <label class="btn  btn-default active" ng-click="mainCtrl.openlpModel.type = 'name'">
                         <input value="name" type="radio">Name Finder
                     </label>
@@ -39,7 +42,7 @@
             <label for="results" class="control-label">Results</label>
             <ul class="list-group">
                 <li class="list-group-item" ng-repeat="item in mainCtrl.payloadModel track by $index">
-                    <span><span class="{{item.type}}"></span> {{item.text}}</span>
+                    <span><span class="{{item.type}}"></span> [{{item.type}}] {{item.text}}</span>
                     <span ng-if="item.prob != undefined && item.prob >= 75" class="green">{{item.prob}}%</span>
                     <span ng-if="item.prob != undefined && item.prob < 75 && item.prob > 0" class="red">{{item.prob}}%</span>
                 </li>

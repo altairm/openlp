@@ -11,6 +11,7 @@ public class Payload {
     public static final String TYPE_TOKENIZER = "tokenizer";
     public static final String TYPE_SENTENCE = "sentence";
     public static final String TYPE_NAME = "name";
+    public static final String TYPE_POS = "part_of_speech"; //Part of Speech
 
     private String text;
     @NotNull
