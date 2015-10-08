@@ -39,6 +39,7 @@ phantom
             var that = this;
             this.phantomModel = {};
             this.payloadModel = [];
+            this.totalTime = "";
             this.isLoading = false;
             this.payload = function() {
                 that.isLoading = true;
@@ -47,6 +48,7 @@ phantom
                         if (payload.$resolved && payload.list) {
                             that.isLoading = false;
                             that.payloadModel = payload.list;
+                            that.totalTime = payload.time;
                         }
                     },
                     function(error) {

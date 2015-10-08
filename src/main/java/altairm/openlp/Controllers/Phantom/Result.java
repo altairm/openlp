@@ -54,6 +54,16 @@ public class Result {
 
     private boolean status = true;
 
+    private String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public Result() {
         this(new ArrayList<>());
     }
@@ -76,5 +86,8 @@ public class Result {
 
     public void setList(List<Item> list) {
         this.list = list;
+    }
+    public void addToList(Item item) {
+        this.list.add(item);
     }
 }

@@ -158,20 +158,3 @@ function saveToFile(path, content) {
     var fs = require('fs');
     fs.write(path, content, 'w');
 }
-
-/**
- * verify page is ID present there
- * @param page
- * @param verifyId
- * @param domain
- */
-function verifyPage(page, verifyId, domain) {
-    if (/facebook/.test(domain)) {
-        var tester = new RegExp("profile_id[=\":]{1,2}("+verifyId+")", "g");
-        if (!tester.test(page.content)) {
-            return false;
-        }
-    }
-    console.log("page verification success!");
-    return true;
-}

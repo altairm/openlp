@@ -27,12 +27,13 @@
         </div>
     </div>
     <div class="panel-body" ng-if="phantomCtrl.payloadModel.length > 0">
-        <label for="results" class="control-label">Results</label>
+        <label for="results" class="control-label">Results {{phantomCtrl.totalTime}}</label>
         <ul class="list-group">
             <li class="list-group-item" ng-repeat="item in phantomCtrl.payloadModel track by $index">
-                <span>
-                    <a href="/downloads/{{item.link}}" target="_blank" >{{item.url}}</a> <span class="green"> [{{item.time}}]</span> <span ng-if="item.error != undefined" class="red">{{item.error}}</span>
+                <span ng-if="item.error == undefined">
+                    <a href="/downloads/{{item.link}}" target="_blank" >{{item.url}}</a> <span class="green"> [{{item.time}}]</span>
                 </span>
+                <span ng-if="item.error != undefined">{{item.url}}   <span class="green"> [{{item.time}}]</span>  <span class="red"> {{item.error}}</span></span>
             </li>
         </ul>
     </div>
