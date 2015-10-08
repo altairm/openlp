@@ -45,7 +45,7 @@ public class PhantomController {
             cmdLine.addArgument("/home/altair/workspace.old/openlp/src/main/resources/download.js");
             cmdLine.addArgument(url);
             cmdLine.addArgument("[]");
-            String fileName = url.replaceAll("[^\\w]", "_") + ".png";
+            String fileName = url.replaceAll("[^\\w]", "_") + ".jpeg";
             cmdLine.addArgument("/home/altair/workspace.old/openlp/public/downloads/" + fileName);
             DefaultExecutor exec = new DefaultExecutor();
             PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);

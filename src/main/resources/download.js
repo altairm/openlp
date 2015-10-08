@@ -46,7 +46,13 @@ function renderPage(url ) {
     // set user agent
     page.settings.userAgent = 'Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/534.34 (KHTML, like Gecko) Safari/534.34';
     // set image size
-    page.viewportSize = { height:800, width:1024 };
+    page.viewportSize = { height:2048, width:1024 };
+    page.clipRect = {
+      top: 0,
+      left: 0,
+      width: 1024,
+      height: 2048
+    };
 
     var redirectURL = null;
     /**
@@ -90,7 +96,7 @@ function renderPage(url ) {
                     phantom.exit();
                 } else {
                     // try to render page
-                    if ( page.render(destination) ) {
+                    if ( page.render(destination,  {format: 'jpeg', quality: '50'}) ) {
                         console.log('Page rendered to ' + destination);
                         page.close();
                         phantom.exit();
